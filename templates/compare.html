@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Comparison Result</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #eef3f7; margin: 0; padding: 0; }
+    .container { width: 95%; margin: auto; padding: 20px; }
+    .products { display: flex; gap: 20px; }
+    .card {
+      flex: 1;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0px 2px 8px rgba(0,0,0,0.1);
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+    .card img { max-width: 100%; max-height: 200px; display: block; margin: auto; border-radius: 8px; }
+    h2 { color: #0073e6; font-size: 18px; }
+    textarea { width: 100%; min-height: 80px; margin-top: 10px; }
+    .actions { margin-top: 20px; text-align: center; }
+    button {
+      padding: 12px 24px; margin: 10px; border: none;
+      border-radius: 8px; cursor: pointer; font-size: 16px;
+    }
+    .accept { background: #28a745; color: white; }
+    .reject { background: #dc3545; color: white; }
+  </style>
+  <script>
+    function enableEditing() {
+      document.querySelectorAll('.rhs input, .rhs textarea').forEach(el => {
+        el.removeAttribute('readonly');
+      });
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <div class="products">
+      <!-- Left Product -->
+      <div class="card lhs">
+        <img src="{{ lhs_data.image }}" alt="Product Image">
+        <h2>{{ lhs_data.title }}</h2>
+        <p><strong>Price:</strong> {{ lhs_data.price }}</p>
+        <p><strong>Rating:</strong> {{ lhs_data.rating }}</p>
+        <p><strong>Description:</strong> {{ lhs_data.description }}</p>
+        <p><strong>Details:</strong> {{ lhs_data.details }}</p>
+      </div>
+
+      <!-- Right Product -->
+      <div class="card rhs">
+        <form method="POST" action="/submit">
+          <input type="hidden" name="url1" value="{{ url1 }}">
+          <input type="hidden" name="url2" value="{{ url2 }}">
+          <input type="hidden" name="reviewer" value="{{ reviewer }}">
+
+          <img src="{{ rhs_data.image }}" alt="Product Image">
+          <h2><input type="text" name="rhs_title" value="{{ rhs_data.title }}" readonly></h2>
+          <p><strong>Price:</strong> <input type="text" name="rhs_price" value="{{ rhs_data.price }}" readonly></p>
+          <p><strong>Rating:</strong> <input type="text" name="rhs_rating" value="{{ rhs_data.rating }}" readonly></p>
+          <p><strong>Description:</strong> <textarea name="rhs_description" readonly>{{ rhs_data.description }}</textarea></p>
+          <p><strong>Details:</strong> <textarea name="rhs_details" readonly>{{ rhs_data.details }}</textarea></p>
+
+          <!-- Hidden LHS fields -->
+          <input type="hidden" name="lhs_title" value="{{ lhs_data.title }}">
+          <input type="hidden" name="lhs_price" value="{{ lhs_data.price }}">
+          <input type="hidden" name="lhs_rating" value="{{ lhs_data.rating }}">
+          <input type="hidden" name="lhs_description" value="{{ lhs_data.description }}">
+          <input type="hidden" name="lhs_details" value="{{ lhs_data.details }}">
+
+          <div class="actions">
+            <button type="submit" name="decision" value="Accepted" class="accept">Accept</button>
+            <button type="button" onclick="enableEditing()" class="reject">Reject (Edit)</button>
+            <button type="submit" name="decision" value="Rejected" class="reject">Submit Rejected</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

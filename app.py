@@ -8,6 +8,7 @@ import random
 import time
 
 app = Flask(__name__)
+app.secret_key = 'your-secret-key-here'  # Add a secret key for session management
 
 # List of user agents to rotate
 USER_AGENTS = [
@@ -33,7 +34,7 @@ def get_headers():
         "Connection": "keep-alive",
         "Upgrade-Insecure-Requests": "1",
         "Cache-Control": "max-age=0"
-    }
+   }
 
 def scrape_product(url):
     """Scrape Amazon product details using the working approach"""
@@ -50,10 +51,10 @@ def scrape_product(url):
     try:
         # Add delay to avoid being blocked
         time.sleep(1 + random.random() * 2)
-        
+
         response = requests.get(url, headers=get_headers(), timeout=15)
         response.raise_for_status()
-        
+
         soup = BeautifulSoup(response.content, "html.parser")
 
         # Title
@@ -68,7 +69,7 @@ def scrape_product(url):
             # Try alternative price selectors
             price = soup.find("span", {"class": "a-offscreen"})
             product["price"] = price.get_text(strip=True) if price else "Not found"
-
+        
         # Rating
         rating = soup.find("span", {"class": "a-icon-alt"})
         product["rating"] = rating.get_text(strip=True) if rating else "Not found"
@@ -109,7 +110,7 @@ def scrape_product(url):
                 value = item.find_next("span").get_text(strip=True) if item.find_next("span") else ""
                 if key and value:
                     details[key] = value
-        
+
         # Convert details dict to string
         if details:
             details_list = [f"{k}: {v}" for k, v in details.items()]
@@ -137,17 +138,17 @@ def save_to_csv(data, filename=None):
     """Save product data to CSV file"""
     if filename is None:
         filename = f"data/product_comparisons_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv"
-    
+   
     file_exists = os.path.isfile(filename)
     
     with open(filename, 'a', newline='', encoding='utf-8') as csvfile:
         fieldnames = ['timestamp', 'product_type', 'status', 'title', 'price', 
                      'rating', 'description', 'details', 'image', 'url']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-        
+
         if not file_exists:
             writer.writeheader()
-        
+
         for product in data:
             product_data = {
                 'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
@@ -168,6 +169,8 @@ def save_to_csv(data, filename=None):
 @app.route('/', methods=['GET', 'POST'])
 def index():
     products = []
+    new_product_mode = False
+    
     if request.method == 'POST':
         # Check if this is a submission of edited data
         if 'edited_title_2' in request.form:
@@ -193,18 +196,17 @@ def index():
                 "status": "Edited",
                 "product_type": "Product 2"
             }]
-            
+
             # Save to CSV
             save_to_csv(products)
-            
             return render_template('index.html', success=True, products=[])
-        
+
         # Check if this is an Accept action
         elif 'accept' in request.form:
             # Mark both products as accepted and save to CSV
             url1 = request.form.get('original_url_1', '')
             url2 = request.form.get('original_url_2', '')
-            
+
             # Get the original products data from the form
             product1 = {
                 "title": request.form.get('original_title_1', ''),
@@ -217,7 +219,7 @@ def index():
                 "status": "Accepted",
                 "product_type": "Product 1"
             }
-            
+
             product2 = {
                 "title": request.form.get('original_title_2', ''),
                 "price": request.form.get('original_price_2', ''),
@@ -229,25 +231,65 @@ def index():
                 "status": "Accepted",
                 "product_type": "Product 2"
             }
-            
+
             # Save to CSV
             save_to_csv([product1, product2])
-            
             return render_template('index.html', success=True, products=[])
-        
-        # Otherwise, it's a new product comparison request
+
+        # Check if NEW button was clicked (we need to check for the hidden input)
+        elif 'new_product' in request.form and request.form['new_product'] == 'true':
+            url1 = request.form.get('url1', '')
+
+            if url1:
+                # Scrape only the first product
+                product = scrape_product(url1)
+                product['product_type'] = "Product 1"
+                products.append(product)
+
+                # Create an empty product for the second (new) product
+                empty_product = {
+                    "title": "",
+                    "price": "",
+                    "rating": "",
+                    "description": "",
+                    "details": "",
+                    "image": "",
+                    "url": "",
+                    "product_type": "Product 2"
+                }
+                products.append(empty_product)
+                new_product_mode = True
+
+        # Otherwise, it's a new product comparison request with two URLs
         else:
             url1 = request.form.get('url1', '')
             url2 = request.form.get('url2', '')
-            
+
             if url1 and url2:
                 products = []
                 for i, url in enumerate([url1, url2]):
                     product = scrape_product(url)
                     product['product_type'] = f"Product {i+1}"
                     products.append(product)
+            elif url1:  # Only one URL provided, treat as new product mode
+                product = scrape_product(url1)
+                product['product_type'] = "Product 1"
+                products.append(product)
+                
+                empty_product = {
+                    "title": "",
+                    "price": "",
+                    "rating": "",
+                    "description": "",
+                    "details": "",
+                    "image": "",
+                    "url": "",
+                    "product_type": "Product 2"
+                }
+                products.append(empty_product)
+                new_product_mode = True
     
-    return render_template('index.html', products=products)
+    return render_template('index.html', products=products, new_product_mode=new_product_mode)
 
 @app.route('/download-csv')
 def download_csv():

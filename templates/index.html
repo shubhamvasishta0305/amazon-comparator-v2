@@ -15,13 +15,13 @@
             --dark-color: #34495e;
             --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f5f7fa;
@@ -29,7 +29,7 @@
             line-height: 1.6;
             padding: 20px;
         }
-        
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -38,46 +38,46 @@
             box-shadow: var(--shadow);
             overflow: hidden;
         }
-        
+
         header {
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
             padding: 20px;
             text-align: center;
         }
-        
+
         header h1 {
             margin-bottom: 10px;
             font-size: 2.2rem;
         }
-        
+
         header p {
             opacity: 0.9;
         }
-        
+
         .input-section {
             padding: 25px;
             background: var(--light-color);
             border-bottom: 1px solid #ddd;
         }
-        
+
         .url-inputs {
             display: flex;
             gap: 15px;
             margin-bottom: 20px;
         }
-        
+
         .url-input {
             flex: 1;
         }
-        
+
         .url-input label {
             display: block;
             margin-bottom: 8px;
             font-weight: 600;
             color: var(--dark-color);
         }
-        
+
         .url-input input {
             width: 100%;
             padding: 12px 15px;
@@ -86,19 +86,51 @@
             font-size: 16px;
             transition: border-color 0.3s;
         }
-        
+
         .url-input input:focus {
             border-color: var(--primary-color);
             outline: none;
             box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
         }
-        
+
+        .input-options {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .option-tab {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .option-tab.active {
+            border-color: var(--primary-color);
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+
+        .option-tab h3 {
+            margin-bottom: 8px;
+            color: var(--secondary-color);
+        }
+
+        .option-tab p {
+            font-size: 14px;
+            color: #666;
+        }
+
         .actions {
             display: flex;
             justify-content: center;
             gap: 15px;
+            margin-top: 20px;
         }
-        
+
         .btn {
             padding: 12px 25px;
             border: none;
@@ -111,53 +143,64 @@
             align-items: center;
             gap: 8px;
         }
-        
+
         .btn-primary {
             background-color: var(--primary-color);
             color: white;
         }
-        
+
         .btn-primary:hover {
             background-color: #2980b9;
         }
-        
+
         .btn-secondary {
             background-color: var(--secondary-color);
             color: white;
         }
-        
+
         .btn-secondary:hover {
             background-color: #1e2a36;
         }
-        
+
         .btn-success {
             background-color: var(--success-color);
             color: white;
         }
-        
+
         .btn-success:hover {
             background-color: #27ae60;
         }
-        
+
         .btn-danger {
             background-color: var(--accent-color);
             color: white;
         }
-        
+
         .btn-danger:hover {
             background-color: #c0392b;
         }
-        
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
         .products-container {
             padding: 25px;
         }
-        
+
         .products {
             display: flex;
             gap: 25px;
             margin-bottom: 30px;
         }
-        
+
         .product-card {
             flex: 1;
             border: 1px solid #ddd;
@@ -167,16 +210,16 @@
             box-shadow: var(--shadow);
             transition: transform 0.3s;
         }
-        
+
         .product-card.frozen {
             background-color: #f9f9f9;
             opacity: 0.9;
         }
-        
+
         .product-card:hover {
             transform: translateY(-5px);
         }
-        
+
         .product-image {
             height: 250px;
             overflow: hidden;
@@ -185,17 +228,17 @@
             justify-content: center;
             background: #f9f9f9;
         }
-        
+
         .product-image img {
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
         }
-        
+
         .product-content {
             padding: 20px;
         }
-        
+
         .product-title {
             font-size: 18px;
             font-weight: 600;
@@ -203,20 +246,20 @@
             color: var(--dark-color);
             min-height: 50px;
         }
-        
+
         .product-attribute {
             margin-bottom: 12px;
             padding-bottom: 12px;
             border-bottom: 1px solid #eee;
         }
-        
+
         .product-attribute label {
             display: block;
             font-weight: 600;
             margin-bottom: 5px;
             color: var(--secondary-color);
         }
-        
+
         .product-attribute .value {
             color: #555;
             padding: 8px 10px;
@@ -224,7 +267,7 @@
             border-radius: 4px;
             background-color: #f9f9f9;
         }
-        
+
         .editable {
             width: 100%;
             padding: 8px 10px;
@@ -234,7 +277,7 @@
             font-size: 14px;
             background-color: white;
         }
-        
+
         .decision-buttons {
             display: flex;
             justify-content: center;
@@ -243,7 +286,7 @@
             padding: 20px;
             border-top: 1px solid #eee;
         }
-        
+
         .edit-buttons {
             display: flex;
             justify-content: center;
@@ -252,7 +295,7 @@
             padding: 20px;
             border-top: 1px solid #eee;
         }
-        
+
         .success-message {
             background-color: #d4edda;
             color: #155724;
@@ -265,7 +308,7 @@
             justify-content: center;
             gap: 10px;
         }
-        
+
         .download-section {
             text-align: center;
             padding: 20px;
@@ -273,7 +316,7 @@
             border-radius: 8px;
             margin-top: 30px;
         }
-        
+
         footer {
             text-align: center;
             padding: 20px;
@@ -281,12 +324,12 @@
             color: #777;
             font-size: 14px;
         }
-        
+
         @media (max-width: 768px) {
-            .url-inputs, .products {
+            .url-inputs, .products, .input-options {
                 flex-direction: column;
             }
-            
+
             .actions {
                 flex-direction: column;
             }
@@ -299,34 +342,47 @@
             <h1><i class="fas fa-balance-scale"></i> Amazon Product Comparator</h1>
             <p>Compare products side by side and make informed decisions</p>
         </header>
-        
+
         <div class="input-section">
-            <form method="POST" action="/">
+            <form method="POST" action="/" id="main-form">
                 <div class="url-inputs">
                     <div class="url-input">
-                        <label for="url1"><i class="fas fa-link"></i> First Amazon Product URL</label>
+                        <label for="url1"><i class="fas fa-link"></i> First Amazon Product URL *</label>
                         <input type="url" name="url1" id="url1" placeholder="https://www.amazon.com/..." required>
                     </div>
-                    <div class="url-input">
-                        <label for="url2"><i class="fas fa-link"></i> Second Amazon Product URL</label>
-                        <input type="url" name="url2" id="url2" placeholder="https://www.amazon.com/..." required>
+                </div>
+
+                <div class="input-options">
+                    <div class="option-tab active" id="url-option">
+                        <h3><i class="fas fa-link"></i> Compare with URL</h3>
+                        <p>Enter a second Amazon product URL to compare</p>
+                        <div class="url-input" style="margin-top: 15px;">
+                            <input type="url" name="url2" id="url2" placeholder="https://www.amazon.com/..." required>
+                        </div>
+                    </div>
+
+                    <div class="option-tab" id="new-option">
+                        <h3><i class="fas fa-plus"></i> Create New Product</h3>
+                        <p>Manually create a product to compare with</p>
+                        <input type="hidden" name="new_product" value="false">
                     </div>
                 </div>
+
                 <div class="actions">
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" name="action" value="compare" class="btn btn-primary">
                         <i class="fas fa-search"></i> Compare Products
                     </button>
                 </div>
             </form>
         </div>
-        
+
         {% if success %}
         <div class="success-message">
             <i class="fas fa-check-circle"></i>
             <span>Comparison completed successfully! You can now enter new URLs.</span>
         </div>
         {% endif %}
-        
+
         {% if products %}
         <div class="products-container">
             <form method="POST" action="/">
@@ -338,7 +394,8 @@
                 <input type="hidden" name="original_details_1" value="{{ products[0].details }}">
                 <input type="hidden" name="original_image_1" value="{{ products[0].image }}">
                 <input type="hidden" name="original_url_1" value="{{ products[0].url }}">
-                
+
+                {% if not new_product_mode %}
                 <input type="hidden" name="original_title_2" value="{{ products[1].title }}">
                 <input type="hidden" name="original_price_2" value="{{ products[1].price }}">
                 <input type="hidden" name="original_rating_2" value="{{ products[1].rating }}">
@@ -346,7 +403,8 @@
                 <input type="hidden" name="original_details_2" value="{{ products[1].details }}">
                 <input type="hidden" name="original_image_2" value="{{ products[1].image }}">
                 <input type="hidden" name="original_url_2" value="{{ products[1].url }}">
-                
+                {% endif %}
+
                 <div class="products">
                     <!-- Product 1 (LHS - Frozen) -->
                     <div class="product-card frozen">
@@ -362,33 +420,33 @@
                                 <label>Title</label>
                                 <div class="value">{{ products[0].title }}</div>
                             </div>
-                            
+
                             <div class="product-attribute">
                                 <label>Price</label>
                                 <div class="value">{{ products[0].price }}</div>
                             </div>
-                            
+
                             <div class="product-attribute">
                                 <label>Rating</label>
                                 <div class="value">{{ products[0].rating }}</div>
                             </div>
-                            
+
                             <div class="product-attribute">
                                 <label>Description</label>
                                 <div class="value">{{ products[0].description }}</div>
                             </div>
-                            
+
                             <div class="product-attribute">
                                 <label>Details</label>
                                 <div class="value">{{ products[0].details }}</div>
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Product 2 (RHS - Editable) -->
                     <div class="product-card">
                         <div class="product-image">
-                            {% if products[1].image %}
+                            {% if products[1].image and not new_product_mode %}
                             <img src="{{ products[1].image }}" alt="Product Image">
                             {% else %}
                             <div><i class="fas fa-image fa-3x" style="color: #ddd;"></i></div>
@@ -397,44 +455,46 @@
                         <div class="product-content">
                             <div class="product-attribute">
                                 <label for="edited_title_2">Title</label>
-                                <input type="text" class="editable" name="edited_title_2" value="{{ products[1].title }}">
+                                <input type="text" class="editable" name="edited_title_2" value="{{ products[1].title if not new_product_mode else '' }}">
                             </div>
-                            
+
                             <div class="product-attribute">
                                 <label for="edited_price_2">Price</label>
-                                <input type="text" class="editable" name="edited_price_2" value="{{ products[1].price }}">
+                                <input type="text" class="editable" name="edited_price_2" value="{{ products[1].price if not new_product_mode else '' }}">
                             </div>
-                            
+
                             <div class="product-attribute">
                                 <label for="edited_rating_2">Rating</label>
-                                <input type="text" class="editable" name="edited_rating_2" value="{{ products[1].rating }}">
+                                <input type="text" class="editable" name="edited_rating_2" value="{{ products[1].rating if not new_product_mode else '' }}">
                             </div>
-                            
+
                             <div class="product-attribute">
                                 <label for="edited_description_2">Description</label>
-                                <textarea class="editable" name="edited_description_2" rows="3">{{ products[1].description }}</textarea>
+                                <textarea class="editable" name="edited_description_2" rows="3">{{ products[1].description if not new_product_mode else '' }}</textarea>
                             </div>
-                            
+
                             <div class="product-attribute">
                                 <label for="edited_details_2">Details</label>
-                                <textarea class="editable" name="edited_details_2" rows="3">{{ products[1].details }}</textarea>
+                                <textarea class="editable" name="edited_details_2" rows="3">{{ products[1].details if not new_product_mode else '' }}</textarea>
                             </div>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="decision-buttons">
+                    {% if not new_product_mode %}
                     <button type="submit" name="accept" value="true" class="btn btn-success">
                         <i class="fas fa-check"></i> Accept Both Products
                     </button>
+                    {% endif %}
                     <button type="button" id="edit-button" class="btn btn-danger">
                         <i class="fas fa-edit"></i> Edit RHS Product
                     </button>
                 </div>
-                
+
                 <div class="edit-buttons" id="submit-buttons" style="display: none;">
                     <button type="submit" class="btn btn-success">
-                        <i class="fas fa-check"></i> Submit Edited Product
+                        <i class="fas fa-check"></i> Submit {% if new_product_mode %}New{% else %}Edited{% endif %} Product
                     </button>
                     <button type="button" id="cancel-edit" class="btn btn-secondary">
                         <i class="fas fa-times"></i> Cancel Edit
@@ -443,7 +503,7 @@
             </form>
         </div>
         {% endif %}
-        
+
         <div class="download-section">
             <h3><i class="fas fa-download"></i> Export Your Data</h3>
             <p>Download all your comparisons as a CSV file</p>
@@ -451,7 +511,7 @@
                 <i class="fas fa-file-csv"></i> Download CSV
             </a>
         </div>
-        
+
         <footer>
             <p>Amazon Product Comparator &copy; 2023 | Data is collected for comparison purposes only</p>
         </footer>
@@ -463,36 +523,82 @@
             button.addEventListener('mouseenter', function() {
                 this.style.transform = 'translateY(-2px)';
             });
-            
+
             button.addEventListener('mouseleave', function() {
                 this.style.transform = 'translateY(0)';
             });
         });
-        
-        // Edit button functionality
+
+        // Option tabs functionality
         document.addEventListener('DOMContentLoaded', function() {
+            const urlOption = document.getElementById('url-option');
+            const newOption = document.getElementById('new-option');
+            const url2Input = document.getElementById('url2');
+            const newProductInput = document.querySelector('input[name="new_product"]');
+            let currentMode = 'url'; // 'url' or 'new'
+
+            if (urlOption && newOption) {
+                urlOption.addEventListener('click', function() {
+                    urlOption.classList.add('active');
+                    newOption.classList.remove('active');
+                    url2Input.removeAttribute('disabled');
+                    url2Input.required = true;
+                    newProductInput.value = 'false';
+                    currentMode = 'url';
+                });
+
+                newOption.addEventListener('click', function() {
+                    newOption.classList.add('active');
+                    urlOption.classList.remove('active');
+                    url2Input.setAttribute('disabled', 'disabled');
+                    url2Input.required = false;
+                    url2Input.value = '';
+                    newProductInput.value = 'true';
+                    currentMode = 'new';
+                });
+            }
+
+            // Form submission handling
+            const mainForm = document.getElementById('main-form');
+            if (mainForm) {
+                mainForm.addEventListener('submit', function(e) {
+                    if (currentMode === 'new') {
+                        // Remove the URL2 value when in new product mode
+                        url2Input.value = '';
+                    }
+                    // Let the form submit normally
+                });
+            }
+
+            // Edit button functionality
             const editButton = document.getElementById('edit-button');
             const submitButtons = document.getElementById('submit-buttons');
             const decisionButtons = document.querySelector('.decision-buttons');
             const cancelEdit = document.getElementById('cancel-edit');
-            
+
             if (editButton) {
                 editButton.addEventListener('click', function() {
                     decisionButtons.style.display = 'none';
                     submitButtons.style.display = 'flex';
                 });
             }
-            
+
             if (cancelEdit) {
                 cancelEdit.addEventListener('click', function() {
                     decisionButtons.style.display = 'flex';
                     submitButtons.style.display = 'none';
-                    
-                    // Reset form values to original
+
+                    // Reset form values to original only if not in new product mode
+                    {% if not new_product_mode %}
                     document.querySelectorAll('.editable').forEach((input, index) => {
                         const originalValue = document.querySelector(`input[name="original_${input.name.split('_')[1]}_2"]`).value;
                         input.value = originalValue;
                     });
+                    {% else %}
+                    document.querySelectorAll('.editable').forEach(input => {
+                        input.value = '';
+                    });
+                    {% endif %}
                 });
             }
         });
